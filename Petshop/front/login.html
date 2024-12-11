@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Petshop</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header>
+        <div><a class="logo" href="index.html">
+            <img src="./src/logoReal.png" alt="Logo da Empresa">
+            <div id="logo-name">
+              <p id="name1">Moreno's</p>
+              <p id="name2">Petshop</p>
+            </div>
+        </a>
+        </div>
+    </div>
+      <h1>Moreno's Petshop - Login</h1>
+      <nav class="menu-icon" onclick="toggleMenu()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
+      </nav>
+
+       <!-- Menu Lateral (direito) -->
+  <aside class="side-menu" id="side-menu">
+    <button class="close-btn" onclick="toggleMenu()">✖</button>
+    <ul>
+      <li><a href="./index.html">Página Inicial</a></li>
+      <li><a href="./singup.html">Cadastre-se</a></li>
+      <li><a href="./pet-register.html">Registrar Pet</a></li>
+      <li><a href="./service-registration.html">Serviços</a></li>
+      <li><a href="./service-scheduling.html">Agendamento</a></li>
+    </ul>
+  </aside>
+    </header>
+
+    <main>
+        <section class="login-container">
+            <h2>Faça seu Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                </div>
+                <button type="submit">Entrar</button>
+            </form>
+            <p>Ainda não tem uma conta? <a href="/signup">Cadastre-se</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Moreno's Petshop - Todos os direitos reservados.</p>
+      </footer>
+
+
+      
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+            const response = await fetch("http://localhost:8080/api/login", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                alert("Login bem-sucedido!");
+                window.location.href = "./index";
+            } else {
+                alert("E-mail ou senha incorretos. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro ao conectar ao servidor:", error);
+            alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        }
+    });
+});
+
+
+
+
+function toggleMenu() {
+    const sideMenu = document.getElementById('side-menu'); // Obtém o menu lateral
+    if (sideMenu.style.right === '-300px' || sideMenu.style.right === '') {
+        sideMenu.style.right = '0'; // Mostra o menu
+    } else {
+        sideMenu.style.right = '-300px'; // Esconde o menu
+    }
+}
+
+
+    </script>
+</body>
+</html>
+
+
+<!-- @RestController
+@RequestMapping("/api")
+public class LoginController {
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserCredentials credentials) {
+        if ("user@example.com".equals(credentials.getEmail()) && "password123".equals(credentials.getPassword())) {
+            return ResponseEntity.ok("Login bem-sucedido");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
+        }
+    }
+
+    public static class UserCredentials {
+        private String email;
+        private String password;
+
+        // Getters and Setters
+    }
+} -->

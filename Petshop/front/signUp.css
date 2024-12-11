@@ -1,0 +1,293 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Gemstone';
+    src: url(./assets/Gemstone.ttf) format(truetype);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e7e7e7;
+    margin-top: 190px;
+    margin-bottom: 130px;
+  }
+
+header {
+    background-color: #ffffff;
+    padding: 1rem;
+    text-align: center;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 0;         /* Mantém o header no topo */
+    left: 0;        /* Alinha ao lado esquerdo */
+    width: 100%;    /* Garante que o header ocupe a largura completa */
+    z-index: 1000;  /* Mantém o header acima de outros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adiciona sombra para destaque */
+  }
+
+  .logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Gemstone';
+  }
+
+  .logo img{
+    height: 5.5rem;
+  }
+
+  #name1{
+    font-size: 30px;
+    color: black;
+  }
+  
+  #name2{
+    font-size: 20px;
+    color: #A7C957;
+  }
+
+  .menu-icon {
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .side-menu {
+    width: 300px;
+    background: linear-gradient(135deg, #444, #111);
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: -300px; /* Fora da tela por padrão */
+    transition: 0.4s;
+    z-index: 1500; /* Garantir que fique acima do header */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    padding-top: 30px;
+    color: white;
+  }
+  
+  .side-menu ul {
+    list-style: none;
+    padding: 0 20px;
+  }
+  
+  .side-menu ul li {
+    margin: 20px 0;
+  }
+  
+  .side-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .side-menu ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Botão de fechar no menu */
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .close-btn:hover {
+    transform: rotate(90deg);
+    background-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Alinha itens verticalmente */
+        gap: 15px; /* Reduz o espaçamento */
+        padding: 10px; /* Ajusta o espaçamento */
+        position: static;
+        margin-top: -200px;
+    }
+  
+    .logo {
+        flex-direction: column; /* Reorganiza logo verticalmente */
+        align-items: center; /* Centraliza os itens */
+    }
+  
+    .logo img {
+        height: 4rem; /* Reduz o tamanho da imagem */
+    }
+  
+    #name1 {
+        font-size: 1.5rem; /* Ajusta o tamanho do texto */
+    }
+  
+    #name2 {
+        font-size: 1.2rem; /* Ajusta o tamanho do texto */
+    }
+  
+    .menu-icon {
+        position: absolute; /* Alinha no canto superior direito */
+        top: 10px;
+        right: 10px;
+    }
+  
+    .side-menu{
+     width: 60%;
+    }
+  }
+  
+  /* Responsividade para telas muito pequenas (até 576px) */
+  @media (max-width: 576px) {
+    header {
+        gap: 10px; /* Reduz ainda mais o espaçamento */
+    }
+  
+    .logo img {
+        height: 3rem; /* Reduz o tamanho da imagem */
+    }
+  
+    .menu-icon {
+        width: 60px; /* Reduz o tamanho do ícone */
+        height: 60px;
+    }
+  }
+  
+
+  /* Responsividade para telas médias a grandes (768px a 1024px) */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    header {
+        padding: 20px; /* Mantém espaçamento confortável */
+        gap: 50px; /* Ajusta o espaço entre itens */
+    }
+  
+    .logo img {
+        height: 5rem; /* Tamanho moderado da logo */
+    }
+  
+    .side-menu {
+        width: 250px; /* Ajusta o tamanho do menu lateral */
+    }
+  }
+
+.signup-container {
+    max-width: 600px;
+    height: 550px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 3px 8px 20px rgba(150, 255, 101, 0.9);
+}
+
+.signup-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #A7C957;
+    font-size: 30px;
+}
+
+#signupForm{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label{
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #A7C957;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20PX;
+}
+
+button:hover {
+    background-color: #21867a;
+}
+
+a {
+    color: #A7C957;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .signup-container{
+      margin: 50px auto; /* Reduz margens em telas menores */
+      width: 80%;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .form-group input {
+      height: 40px;
+  }
+
+
+  form button {
+      padding: 8px;
+      font-size: 14px;
+  }
+
+  .side-menu ul li a {
+      font-size: 18px;
+  }
+}
+
+
+footer {
+  background-color: #A7C957;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: fixed; /* Fixa o footer na parte inferior */
+  bottom: 0; /* Sempre ao fundo da página */
+  width: 100%; /* Ocupa toda a largura */
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+a{
+  text-decoration: none;
+}

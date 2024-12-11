@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Serviços - Petshop</title>
+    <link rel="stylesheet" href="service-registration.css">
+
+</head>
+<body>
+    <header>
+        <div><a class="logo" href="index.html">
+            <img src="./src/logoReal.png" alt="Logo da Empresa">
+            <div id="logo-name">
+              <p id="name1">Moreno's</p>
+              <p id="name2">Petshop</p>
+            </div>
+        </a>
+        </div>
+      </div>
+        <h1>Moreno's Petshop - Cadastro de Serviços</h1>
+        <nav class="menu-icon" onclick="toggleMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+          </svg>
+        </nav>
+  
+         <!-- Menu Lateral (direito) -->
+    <aside class="side-menu" id="side-menu">
+      <button class="close-btn" onclick="toggleMenu()">✖</button>
+      <ul>
+        <li><a href="./index.html">Página Inicial</a></li>
+        <li><a href="./singup.html">Cadastre-se</a></li>
+        <li><a href="./pet-register.html">Registrar Pet</a></li>
+        <li><a href="./login.html">Login</a></li>
+        <li><a href="./service-scheduling.html">Agendamento</a></li>
+      </ul>
+    </aside>
+      </header>
+
+    <main>
+        <section class="service-registration-container">
+            <h2>Cadastro de Serviços</h2>
+            <form id="serviceRegistrationForm">
+                <div class="form-group">
+                    <label for="serviceName">Nome do Serviço:</label>
+                    <input type="text" id="serviceName" name="serviceName" placeholder="Ex: Banho e Tosa" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDescription">Descrição do Serviço:</label>
+                    <textarea id="serviceDescription" name="serviceDescription" placeholder="Descreva o serviço" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="servicePrice">Preço do Serviço (R$):</label>
+                    <input type="number" id="servicePrice" name="servicePrice" step="0.01" placeholder="Digite o preço" required>
+                </div>
+                <button type="submit">Cadastrar Serviço</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Petshop Amigo - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const serviceRegistrationForm = document.getElementById("serviceRegistrationForm");
+
+    serviceRegistrationForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const serviceName = document.getElementById("serviceName").value;
+        const serviceDescription = document.getElementById("serviceDescription").value;
+        const servicePrice = parseFloat(document.getElementById("servicePrice").value);
+
+        try {
+            const response = await fetch("http://localhost:8080/api/services", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ serviceName, serviceDescription, servicePrice })
+            });
+
+            if (response.ok) {
+                alert("Serviço cadastrado com sucesso!");
+                serviceRegistrationForm.reset();
+            } else {
+                alert("Erro no cadastro do serviço. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro ao conectar ao servidor:", error);
+            alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        }
+    });
+});
+
+
+
+
+function toggleMenu() {
+    const sideMenu = document.getElementById('side-menu'); // Obtém o menu lateral
+    if (sideMenu.style.right === '-300px' || sideMenu.style.right === '') {
+        sideMenu.style.right = '0'; // Mostra o menu
+    } else {
+        sideMenu.style.right = '-300px'; // Esconde o menu
+    }
+}
+
+    </script>
+</body>
+</html>
+
+
+<!-- @RestController
+@RequestMapping("/api")
+public class ServiceController {
+
+    @PostMapping("/services")
+    public ResponseEntity<?> registerService(@RequestBody Service service) {
+        if (service.getServiceName() == null || service.getServicePrice() <= 0) {
+            return ResponseEntity.badRequest().body("Dados do serviço inválidos");
+        }
+        // Lógica para salvar no banco (simulação)
+        return ResponseEntity.ok("Serviço cadastrado com sucesso");
+    }
+
+    public static class Service {
+        private String serviceName;
+        private String serviceDescription;
+        private double servicePrice;
+
+        // Getters e Setters
+    }
+} -->

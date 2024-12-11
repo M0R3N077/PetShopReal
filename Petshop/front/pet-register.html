@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Pet - Petshop</title>
+    <link rel="stylesheet" href="pet-register.css">
+
+</head>
+<body>
+    <header>
+        <div><a class="logo" href="index.html">
+            <img src="./src/logoReal.png" alt="Logo da Empresa">
+            <div id="logo-name">
+              <p id="name1">Moreno's</p>
+              <p id="name2">Petshop</p>
+            </div>
+        </a>
+        </div>
+      </div>
+        <h1>Moreno's Petshop - Cadastro do Pet</h1>
+        <nav class="menu-icon" onclick="toggleMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+          </svg>
+        </nav>
+  
+         <!-- Menu Lateral (direito) -->
+    <aside class="side-menu" id="side-menu">
+      <button class="close-btn" onclick="toggleMenu()">✖</button>
+      <ul>
+        <li><a href="./index.html">Página Inicial</a></li>
+        <li><a href="./singup.html">Cadastre-se</a></li>
+        <li><a href="./login.html">Login</a></li>
+        <li><a href="./service-registration.html">Serviços</a></li>
+        <li><a href="./service-scheduling.html">Agendamento</a></li>
+      </ul>
+    </aside>
+      </header>
+  
+
+    <main>
+        <section class="pet-registration-container">
+            <h2>Cadastro do Pet</h2>
+            <form id="petRegistrationForm">
+                <div class="form-group">
+                    <label for="petName">Nome do Pet:</label>
+                    <input type="text" id="petName" name="petName" placeholder="Digite o nome do seu pet" required>
+                </div>
+                <div class="form-group">
+                    <label for="petType">Tipo do Pet:</label>
+                    <select id="petType" name="petType" required>
+                        <option value="" disabled selected>Selecione o tipo</option>
+                        <option value="Cachorro">Cachorro</option>
+                        <option value="Gato">Gato</option>
+                        <option value="Pássaro">Pássaro</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="petAge">Idade do Pet (em anos):</label>
+                    <input type="number" id="petAge" name="petAge" placeholder="Digite a idade do pet" required>
+                </div>
+                <div class="form-group">
+                    <label for="petWeight">Peso do Pet (em kg):</label>
+                    <input type="number" id="petWeight" name="petWeight" step="0.1" placeholder="Digite o peso do pet" required>
+                </div>
+                <button type="submit">Cadastrar Pet</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Petshop Amigo - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const petRegistrationForm = document.getElementById("petRegistrationForm");
+
+    petRegistrationForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const petName = document.getElementById("petName").value;
+        const petType = document.getElementById("petType").value;
+        const petAge = document.getElementById("petAge").value;
+        const petWeight = document.getElementById("petWeight").value;
+
+        try {
+            const response = await fetch("http://localhost:8080/api/pets", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ petName, petType, petAge, petWeight })
+            });
+
+            if (response.ok) {
+                alert("Pet cadastrado com sucesso!");
+                petRegistrationForm.reset();
+            } else {
+                alert("Erro no cadastro do pet. Tente novamente.");
+            }
+        } catch (error) {
+            console.error("Erro ao conectar ao servidor:", error);
+            alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        }
+    });
+});
+
+
+
+function toggleMenu() {
+    const sideMenu = document.getElementById('side-menu'); // Obtém o menu lateral
+    if (sideMenu.style.right === '-300px' || sideMenu.style.right === '') {
+        sideMenu.style.right = '0'; // Mostra o menu
+    } else {
+        sideMenu.style.right = '-300px'; // Esconde o menu
+    }
+}
+
+    </script>
+</body>
+</html>
+
+
+<!-- @RestController
+@RequestMapping("/api")
+public class PetController {
+
+    @PostMapping("/pets")
+    public ResponseEntity<?> registerPet(@RequestBody Pet pet) {
+        if (pet.getPetName() == null || pet.getPetType() == null) {
+            return ResponseEntity.badRequest().body("Dados do pet inválidos");
+        }
+        // Lógica para salvar no banco (simulação)
+        return ResponseEntity.ok("Pet cadastrado com sucesso");
+    }
+
+    public static class Pet {
+        private String petName;
+        private String petType;
+        private int petAge;
+        private double petWeight;
+
+        // Getters e Setters
+    }
+} -->
